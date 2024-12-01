@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.task_management">
+    <!-- O Flutter precisa de comunicação com a aplicação rodando para
+         para prover breakpoints, para ser utilizado em hot reload, etc.
+    -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+</manifest>

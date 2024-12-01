@@ -1,0 +1,23 @@
+// Inclui o módulo app
+include ':app'
+
+def localPropertiesFile = file("local.properties")
+def properties = new Properties()
+
+// Verifica se o arquivo local.properties existe
+if (!localPropertiesFile.exists()) {
+    throw new GradleException("Arquivo local.properties não encontrado!")
+}
+
+// Lê as propriedades do arquivo local.properties
+localPropertiesFile.withReader("UTF-8") { reader ->
+    properties.load(reader)
+}
+
+// Obtém o caminho do SDK do Flutter e verifica se está presente
+def flutterSdkPath = properties.getProperty("flutter.sdk")
+if (flutterSdkPath == null || flutterSdkPath.trim().isEmpty()) {
+    throw new GradleException("flutter.sdk não está definido no arquivo local.properties")
+}
+
+println "Caminho do SDK do Flutter: ${flutterSdkPath}"

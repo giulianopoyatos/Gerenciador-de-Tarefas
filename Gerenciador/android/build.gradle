@@ -1,0 +1,56 @@
+// Declaração do buildscript
+buildscript {
+    repositories {
+        google()   // Adicione o repositório do Google
+        mavenCentral()  // Repositório Maven Central
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.6.0'  // Versão do Android Gradle Plugin
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10"  // Versão do Kotlin
+    }
+}
+
+// Declaração dos plugins
+plugins {
+    apply plugin: 'com.android.application'
+    apply plugin: 'com.google.gms.google-services'
+}
+
+allprojects {
+    repositories {
+        google()  // Repositório do Google para todos os subprojetos
+        mavenCentral()  // Repositório Maven Central
+    }
+}
+
+rootProject.buildDir = '../build'
+
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
+
+android {
+    compileSdkVersion 33  // Defina a versão do SDK para compilar
+
+    defaultConfig {
+        applicationId "com.example.myapp"  // Substitua pelo ID do seu aplicativo
+        minSdkVersion 21  // Defina a versão mínima do SDK
+        targetSdkVersion 33  // Defina a versão alvo do SDK
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17  // Usando Java 17, compatível com AGP 7.6
+        targetCompatibility JavaVersion.VERSION_17  // Usando Java 17, compatível com AGP 7.6
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"  // Definindo o alvo da JVM para Kotlin
+    }
+}
